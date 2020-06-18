@@ -15,7 +15,6 @@ public class GraphExample extends AppCompatActivity {
     LineGraphSeries<DataPoint> series;
     LineGraphSeries<DataPoint> series1;
     double x1 = 0;
-    double y1 = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
