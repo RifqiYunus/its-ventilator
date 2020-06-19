@@ -171,8 +171,12 @@ public class GraphExample extends AppCompatActivity {
                 case UsbService.MESSAGE_FROM_SERIAL_PORT:
                     x2 = x2 + 0.1;
                     String data = (String) msg.obj;
-                    y2 = Double.parseDouble(data);
-                    mActivity.get().series.appendData(new DataPoint(x2, y2), true, 100);
+                    try {
+                        y2 = Double.parseDouble(data);
+                        mActivity.get().series.appendData(new DataPoint(x2, y2), true, 100);
+                    }catch (Exception e){
+                        mActivity.get().display.append(e.getMessage());
+                    }
                     mActivity.get().display.append(data);
                     break;
                 case UsbService.CTS_CHANGE:
@@ -184,10 +188,12 @@ public class GraphExample extends AppCompatActivity {
                 case UsbService.SYNC_READ:
                     x2 = x2 + 0.1;
                     String buffer = (String) msg.obj;
-//                    if (!(buffer==null)) {
-//                        y2 = Integer.parseInt(buffer);
-//                    } else y2 = 1;
-//                    mActivity.get().series.appendData(new DataPoint(x2, y2), true, 100);
+                    try {
+                        y2 = Double.parseDouble(buffer);
+                        mActivity.get().series.appendData(new DataPoint(x2, y2), true, 100);
+                    } catch (Exception e) {
+                        mActivity.get().display.append(e.getMessage());
+                    }
                     mActivity.get().display.append(buffer);
                     break;
             }
