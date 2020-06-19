@@ -23,6 +23,10 @@
         </activity>
         <activity android:name=".GraphExample" />
         <activity android:name=".PreviousPatient" />
+        <service
+            android:name="com.covid.its.ventilator.UsbService"
+            android:enabled="true">
+        </service>
     </application>
 
     <uses-feature android:name="android.hardware.usb.host" />

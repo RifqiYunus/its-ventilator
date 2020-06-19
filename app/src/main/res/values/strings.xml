@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Ventilator</string>
+    <string name="pressure">Pressure</string>
+    <string name="time">Time</string>
 </resources>
