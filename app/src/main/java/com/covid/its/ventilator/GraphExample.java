@@ -77,7 +77,6 @@ public class GraphExample extends AppCompatActivity {
         setContentView(R.layout.activity_graph_example);
         mHandler = new MyHandler(this);
 
-        display = (TextView) findViewById(R.id.textView1);
         GraphView pressure = findViewById(R.id.graph);
         GraphView flow = findViewById(R.id.graph3);
 
@@ -175,7 +174,7 @@ public class GraphExample extends AppCompatActivity {
                         y2 = Double.parseDouble(data);
                         mActivity.get().series.appendData(new DataPoint(x2, y2), true, 100);
                     }catch (Exception e){
-                        mActivity.get().display.append(e.getMessage());
+//                        mActivity.get().display.append(e.getMessage());
                     }
                     mActivity.get().display.append(data);
                     break;
@@ -192,7 +191,7 @@ public class GraphExample extends AppCompatActivity {
                         y2 = Double.parseDouble(buffer);
                         mActivity.get().series.appendData(new DataPoint(x2, y2), true, 100);
                     } catch (Exception e) {
-                        mActivity.get().display.append(e.getMessage());
+//                        mActivity.get().display.append(e.getMessage());
                     }
                     mActivity.get().display.append(buffer);
                     break;
