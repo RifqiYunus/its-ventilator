@@ -93,24 +93,24 @@ public class GraphExample extends AppCompatActivity {
         pressure.getViewport().setXAxisBoundsManual(true);
         pressure.getViewport().setScrollable(true);
 
-        addRandomDataPoint();
+//        addRandomDataPoint();
 
 //        usbService.changeBaudRate(9600);
         flow.addSeries(series1);
         pressure.addSeries(series);
     }
 
-    private void addRandomDataPoint() {
-        mHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                x1 = x1 + 0.1;
-                series1.appendData(new DataPoint(x1, Math.sin(x1)), true, 100);
-//                series.appendData(new DataPoint(x1, Math.sin(x1 + 5)), true, 100);
-                addRandomDataPoint();
-            }
-        }, 10);
-    }
+//    private void addRandomDataPoint() {
+//        mHandler.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                x1 = x1 + 0.1;
+//                series1.appendData(new DataPoint(x1, Math.sin(x1)), true, 100);
+////                series.appendData(new DataPoint(x1, Math.sin(x1 + 5)), true, 100);
+//                addRandomDataPoint();
+//            }
+//        }, 10);
+//    }
 
     @Override
     public void onResume() {
@@ -173,10 +173,11 @@ public class GraphExample extends AppCompatActivity {
                     try {
                         y2 = Double.parseDouble(data);
                         mActivity.get().series.appendData(new DataPoint(x2, y2), true, 100);
+                        mActivity.get().series1.appendData(new DataPoint(x2+4, y2), true, 100);
                     }catch (Exception e){
 //                        mActivity.get().display.append(e.getMessage());
                     }
-                    mActivity.get().display.append(data);
+//                    mActivity.get().display.append(data);
                     break;
                 case UsbService.CTS_CHANGE:
                     Toast.makeText(mActivity.get(), "CTS_CHANGE", Toast.LENGTH_LONG).show();
@@ -190,10 +191,11 @@ public class GraphExample extends AppCompatActivity {
                     try {
                         y2 = Double.parseDouble(buffer);
                         mActivity.get().series.appendData(new DataPoint(x2, y2), true, 100);
+                        mActivity.get().series1.appendData(new DataPoint(x2+4, y2), true, 100);
                     } catch (Exception e) {
 //                        mActivity.get().display.append(e.getMessage());
                     }
-                    mActivity.get().display.append(buffer);
+//                    mActivity.get().display.append(buffer);
                     break;
             }
         }
