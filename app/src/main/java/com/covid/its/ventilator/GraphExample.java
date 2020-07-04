@@ -22,8 +22,6 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 
 import java.lang.ref.WeakReference;
 import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 
 public class GraphExample extends AppCompatActivity {
@@ -68,6 +66,7 @@ public class GraphExample extends AppCompatActivity {
         }
     };
 
+    //    private Handler mHandler = new Handler();
     LineGraphSeries<DataPoint> series;
     LineGraphSeries<DataPoint> series1;
     double x1 = 0;
@@ -80,8 +79,6 @@ public class GraphExample extends AppCompatActivity {
 
         GraphView pressure = findViewById(R.id.graph);
         GraphView flow = findViewById(R.id.graph3);
-        display = (TextView) findViewById(R.id.textView1);
-        display2 = (TextView) findViewById(R.id.textView32);
 
         series = new LineGraphSeries<>();
         series1 = new LineGraphSeries<>();
@@ -162,8 +159,11 @@ public class GraphExample extends AppCompatActivity {
             switch (msg.what) {
                 case UsbService.MESSAGE_FROM_SERIAL_PORT:
                 case UsbService.SYNC_READ:
+//                    Yang ini data dari serial
+//                    masuknya byte per byte
                     String data = (String) msg.obj;
                     try {
+//                        mau coba digabung jadi satu string di buffer
                         arrayBuffer[index] = data;
                         buffer = String.join("", arrayBuffer);
                         if (buffer.contains("\n")) {
@@ -188,6 +188,7 @@ public class GraphExample extends AppCompatActivity {
                         mActivity.get().display2.append(buffer);
                     } catch (Exception ignored) {
                     }
+//                    mActivity.get().display.append(data);
                     break;
                 case UsbService.CTS_CHANGE:
                     Toast.makeText(mActivity.get(), "CTS_CHANGE", Toast.LENGTH_LONG).show();
