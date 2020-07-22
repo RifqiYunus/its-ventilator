@@ -79,6 +79,7 @@ public class GraphExample extends AppCompatActivity {
 
         GraphView pressure = findViewById(R.id.graph);
         GraphView flow = findViewById(R.id.graph3);
+        display = findViewById(R.id.debugText);
 
         series = new LineGraphSeries<>();
         series1 = new LineGraphSeries<>();
@@ -195,7 +196,8 @@ public class GraphExample extends AppCompatActivity {
                     } catch (Exception e) {
 //                        mActivity.get().display.append(e.getMessage());
                     }
-//                    mActivity.get().display.append(buffer);
+                    mActivity.get().display.append(buffer);
+                    mActivity.get().display.append("|");
                     break;
             }
         }
