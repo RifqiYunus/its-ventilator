@@ -10,6 +10,7 @@ import android.hardware.usb.UsbDeviceConnection;
 import android.hardware.usb.UsbManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -26,7 +27,7 @@ public class PreviousPatient extends AppCompatActivity {
 
     public final String ACTION_USB_PERMISSION = "com.covid.its.ventilator.USB_PERMISSION";
     Button startButton, stopButton;
-    TextView textView;
+    TextView textView, pressure, flow;
     UsbManager usbManager;
     UsbDevice device;
     UsbSerialDevice serialPort;
@@ -38,8 +39,16 @@ public class PreviousPatient extends AppCompatActivity {
             String data = null;
             try {
                 data = new String(arg0, "UTF-8");
-                data.concat("/n");
-                tvAppend(textView, data);
+                if (data.contains("flow")) {
+                    String flowData[] = data.split(" ");
+                    tvPut(flow, flowData[1]);
+                }
+                if (data.contains("pressure")) {
+                    String pressureData[] = data.split(" ");
+                    tvPut(pressure, pressureData[2]);
+                    tvAppend(textView,pressureData[1]+" "+pressureData[2]);
+                }
+                tvAppend(textView, data+"|");
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
@@ -95,6 +104,8 @@ public class PreviousPatient extends AppCompatActivity {
         startButton = (Button) findViewById(R.id.buttonStart);
         stopButton = (Button) findViewById(R.id.buttonStop);
         textView = (TextView) findViewById(R.id.debugText);
+        pressure = (TextView) findViewById(R.id.pressureView);
+        flow = (TextView) findViewById(R.id.flowView);
 
         setUiEnabled(false);
         IntentFilter filter = new IntentFilter();
@@ -102,6 +113,7 @@ public class PreviousPatient extends AppCompatActivity {
         filter.addAction(UsbManager.ACTION_USB_DEVICE_ATTACHED);
         filter.addAction(UsbManager.ACTION_USB_DEVICE_DETACHED);
         registerReceiver(broadcastReceiver, filter);
+        textView.setMovementMethod(new ScrollingMovementMethod());
     }
 
     public void setUiEnabled(boolean bool) {
@@ -152,6 +164,18 @@ public class PreviousPatient extends AppCompatActivity {
             @Override
             public void run() {
                 ftv.append(ftext);
+            }
+        });
+    }
+
+    private void tvPut(TextView tv, CharSequence text) {
+        final TextView ftv = tv;
+        final CharSequence ftext = text;
+
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                ftv.setText(ftext);
             }
         });
     }
