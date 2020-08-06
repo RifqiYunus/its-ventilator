@@ -8,8 +8,8 @@ import android.content.IntentFilter;
 import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbDeviceConnection;
 import android.hardware.usb.UsbManager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
@@ -19,7 +19,6 @@ import android.widget.TextView;
 import com.felhr.usbserial.UsbSerialDevice;
 import com.felhr.usbserial.UsbSerialInterface;
 
-import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -38,18 +37,21 @@ public class PreviousPatient extends AppCompatActivity {
         public void onReceivedData(byte[] arg0) {
             String data = null;
             try {
-                data = new String(arg0, "UTF-8");
-                if (data.contains("flow")) {
-                    String flowData[] = data.split(" ");
-                    tvPut(flow, flowData[1]);
+                int parsedPressure = ((arg0[4] & 0xff) << 8) | (arg0[3] & 0xff);
+                String textPressure = Integer.toString(parsedPressure);
+                tvPut(pressure, textPressure);
+                int parsedOxyLevel = ((arg0[6] & 0xff) << 8) | (arg0[5] & 0xff);
+                int parsedFlow = ((arg0[8] & 0xff) << 8) | (arg0[7] & 0xff);
+                int parsedBPM = ((arg0[10] & 0xff) << 8) | (arg0[9] & 0xff);
+                int parsedVol = ((arg0[12] & 0xff) << 8) | (arg0[11] & 0xff);
+                tvAppend(textView,"\n");
+                StringBuilder sb = new StringBuilder();
+                for (byte b : arg0) {
+                    sb.append(String.format("%02X ", b));
                 }
-                if (data.contains("pressure")) {
-                    String pressureData[] = data.split(" ");
-                    tvPut(pressure, pressureData[2]);
-                    tvAppend(textView,pressureData[1]+" "+pressureData[2]);
-                }
-                tvAppend(textView, data+"|");
-            } catch (UnsupportedEncodingException e) {
+                tvAppend(textView, sb.toString() + " ");
+
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 
@@ -68,7 +70,7 @@ public class PreviousPatient extends AppCompatActivity {
                     if (serialPort != null) {
                         if (serialPort.open()) { //Set Serial Connection Parameters.
                             setUiEnabled(true);
-                            serialPort.setBaudRate(9600);
+                            serialPort.setBaudRate(115200);
                             serialPort.setDataBits(UsbSerialInterface.DATA_BITS_8);
                             serialPort.setStopBits(UsbSerialInterface.STOP_BITS_1);
                             serialPort.setParity(UsbSerialInterface.PARITY_NONE);
@@ -114,12 +116,13 @@ public class PreviousPatient extends AppCompatActivity {
         filter.addAction(UsbManager.ACTION_USB_DEVICE_DETACHED);
         registerReceiver(broadcastReceiver, filter);
         textView.setMovementMethod(new ScrollingMovementMethod());
+//        onClickStart(startButton);
     }
 
     public void setUiEnabled(boolean bool) {
         startButton.setEnabled(!bool);
         stopButton.setEnabled(bool);
-        textView.setEnabled(bool);
+//        textView.setEnabled(bool);
 
     }
 
