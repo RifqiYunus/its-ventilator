@@ -17,7 +17,7 @@
         android:onClick="onClickStop"
         android:text="Stop"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/textView18"
+        app:layout_constraintEnd_toStartOf="@+id/BPMView"
         app:layout_constraintStart_toEndOf="@+id/buttonStart" />
 
     <Button
@@ -33,37 +33,37 @@
         app:layout_constraintStart_toEndOf="@+id/textView31" />
 
     <TextView
-        android:id="@+id/textView18"
+        android:id="@+id/BPMView"
         android:layout_width="0dp"
         android:layout_height="48dp"
-        android:layout_marginEnd="161dp"
-        android:text="5"
+        android:layout_marginBottom="32dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginTop="32dp"
         android:textSize="30sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textView28"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/buttonStop" />
+        app:layout_constraintBottom_toBottomOf="@+id/buttonStop"
+        app:layout_constraintEnd_toStartOf="@+id/textView28"
+        app:layout_constraintStart_toEndOf="@+id/buttonStop"
+        app:layout_constraintTop_toTopOf="@+id/textView7" />
 
     <TextView
         android:id="@+id/textView7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="13dp"
+        android:layout_marginBottom="45dp"
         android:layout_marginStart="10dp"
         android:text="BPM"
-        app:layout_constraintBottom_toTopOf="@+id/textView18"
-        app:layout_constraintStart_toStartOf="@+id/textView18" />
+        app:layout_constraintBottom_toTopOf="@+id/buttonStop"
+        app:layout_constraintStart_toStartOf="@+id/BPMView" />
 
     <TextView
         android:id="@+id/textView28"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="80dp"
-        android:layout_marginStart="56dp"
-        android:layout_marginTop="81dp"
+        android:layout_marginEnd="90dp"
         android:text="Breath/min"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/textView18"
-        app:layout_constraintTop_toBottomOf="@+id/textView22" />
+        app:layout_constraintBottom_toBottomOf="@+id/BPMView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/BPMView" />
 
     <TextView
         android:id="@+id/pressureView"
@@ -79,6 +79,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="19dp"
+        android:layout_marginEnd="1dp"
         android:layout_marginStart="109dp"
         android:text="Pressure"
         app:layout_constraintBottom_toTopOf="@+id/pressureView"
@@ -99,22 +100,19 @@
         app:layout_constraintTop_toTopOf="@+id/textView30" />
 
     <TextView
-        android:id="@+id/textView23"
-        android:layout_width="66dp"
+        android:id="@+id/oxyLevelView"
+        android:layout_width="79dp"
         android:layout_height="50dp"
-        android:layout_marginEnd="58dp"
-        android:layout_marginStart="57dp"
-        android:text="21"
+        android:layout_marginEnd="5dp"
         android:textSize="30sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/textView30"
-        app:layout_constraintEnd_toEndOf="@+id/textView28"
-        app:layout_constraintStart_toEndOf="@+id/debugText" />
+        app:layout_constraintEnd_toStartOf="@+id/textView30" />
 
     <TextView
         android:id="@+id/textView30"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="144dp"
+        android:layout_marginEnd="145dp"
         android:layout_marginTop="34dp"
         android:text="%"
         app:layout_constraintEnd_toEndOf="parent"
@@ -135,10 +133,11 @@
     <TextView
         android:id="@+id/flowView"
         android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="135dp"
+        android:layout_height="59dp"
+        android:layout_marginBottom="58dp"
+        android:layout_marginStart="69dp"
         android:textSize="30sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textView31"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/textView31"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -146,10 +145,10 @@
         android:id="@+id/textView31"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="46dp"
-        android:layout_marginEnd="54dp"
+        android:layout_marginBottom="3dp"
+        android:layout_marginEnd="53dp"
         android:text="L/min"
-        app:layout_constraintBottom_toBottomOf="@+id/buttonStart"
+        app:layout_constraintBottom_toBottomOf="@+id/flowView"
         app:layout_constraintEnd_toStartOf="@+id/buttonStart"
         app:layout_constraintStart_toEndOf="@+id/flowView" />
 
@@ -158,30 +157,34 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="17dp"
-        android:layout_marginEnd="18dp"
+        android:layout_marginEnd="19dp"
         android:text="Flow Rate"
         app:layout_constraintBottom_toTopOf="@+id/flowView"
         app:layout_constraintEnd_toEndOf="@+id/flowView" />
 
     <TextView
-        android:id="@+id/textView22"
-        android:layout_width="66dp"
-        android:layout_height="50dp"
-        android:text="230"
+        android:id="@+id/volView"
+        android:layout_width="91dp"
+        android:layout_height="52dp"
+        android:layout_marginBottom="117dp"
+        android:layout_marginEnd="156dp"
+        android:layout_marginStart="157dp"
+        android:layout_marginTop="117dp"
         android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toBottomOf="@+id/textView31"
+        app:layout_constraintEnd_toStartOf="@+id/BPMView"
+        app:layout_constraintStart_toStartOf="@+id/textView31"
+        app:layout_constraintTop_toBottomOf="@+id/textView12" />
 
     <TextView
         android:id="@+id/textView13"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="17dp"
+        android:layout_marginEnd="19dp"
         android:text="Volume"
-        app:layout_constraintBottom_toTopOf="@+id/textView22"
-        app:layout_constraintStart_toStartOf="@+id/textView22" />
+        app:layout_constraintBottom_toTopOf="@+id/volView"
+        app:layout_constraintEnd_toEndOf="@+id/volView" />
 
     <TextView
         android:id="@+id/textView2"
@@ -189,8 +192,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:text="mL"
-        app:layout_constraintStart_toEndOf="@+id/textView22"
-        app:layout_constraintTop_toTopOf="@+id/textView22" />
+        app:layout_constraintStart_toEndOf="@+id/volView"
+        app:layout_constraintTop_toTopOf="@+id/volView" />
 
     <TextView
         android:id="@+id/debugText"
