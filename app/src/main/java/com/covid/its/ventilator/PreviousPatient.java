@@ -52,7 +52,6 @@ public class PreviousPatient extends AppCompatActivity {
                     sb.append(String.format("%02X ", b));
                 }
                 tvAppend(textView, sb.toString() + " ");
-
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -172,7 +171,10 @@ public class PreviousPatient extends AppCompatActivity {
 
     public void onClickStop(View view) {
         setUiEnabled(false);
-        serialPort.close();
+        try {
+            serialPort.close();
+        } catch (Exception ignored) {
+        }
         tvAppend(textView, "\nSerial Connection Closed! \n");
 
     }

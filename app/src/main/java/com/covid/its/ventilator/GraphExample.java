@@ -36,6 +36,7 @@ public class GraphExample extends AppCompatActivity {
     UsbDevice device;
     UsbSerialDevice serialPort;
     UsbDeviceConnection connection;
+    GraphView pressure, flow;
     private double X = 0;
 
     UsbSerialInterface.UsbReadCallback mCallback = new UsbSerialInterface.UsbReadCallback() { //Defining a Callback which triggers whenever data is read.
@@ -118,8 +119,8 @@ public class GraphExample extends AppCompatActivity {
         pressureView = (TextView) findViewById(R.id.pressureView2);
         flowView = (TextView) findViewById(R.id.flowView2);
 
-        GraphView pressure = findViewById(R.id.graph);
-        GraphView flow = findViewById(R.id.graph3);
+        pressure = findViewById(R.id.graph);
+        flow = findViewById(R.id.graph3);
 
         series = new LineGraphSeries<>();
         series1 = new LineGraphSeries<>();
@@ -127,6 +128,7 @@ public class GraphExample extends AppCompatActivity {
         series1.appendData(new DataPoint(0, 0), true, 100);
 
         flow.getViewport().setMinX(0);
+        pressure.getViewport().setMinY(0);
         flow.getViewport().setMaxX(10);
         flow.getViewport().setXAxisBoundsManual(true);
         flow.getViewport().setScrollable(true);
@@ -135,6 +137,7 @@ public class GraphExample extends AppCompatActivity {
         flow.getGridLabelRenderer().setVerticalAxisTitle("Flow");
 
         pressure.getViewport().setMinX(0);
+        pressure.getViewport().setMinY(0);
         pressure.getViewport().setMaxX(10);
         pressure.getViewport().setXAxisBoundsManual(true);
         pressure.getViewport().setScrollable(true);
@@ -197,7 +200,10 @@ public class GraphExample extends AppCompatActivity {
 
     public void onClickStop(View view) {
         setUiEnabled(false);
-        serialPort.close();
+        try {
+            serialPort.close();
+        } catch (Exception ignored) {
+        }
     }
 
     private void tvPut(TextView tv, CharSequence text) {
