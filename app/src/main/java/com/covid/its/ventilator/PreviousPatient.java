@@ -49,8 +49,6 @@ public class PreviousPatient extends AppCompatActivity {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
-
         }
     };
 
@@ -125,7 +123,6 @@ public class PreviousPatient extends AppCompatActivity {
         startButton.setEnabled(!bool);
         stopButton.setEnabled(bool);
 //        textView.setEnabled(bool);
-
     }
 
     @Override
@@ -136,7 +133,6 @@ public class PreviousPatient extends AppCompatActivity {
     }
 
     public void onClickStart(View view) {
-
         HashMap<String, UsbDevice> usbDevices = usbManager.getDeviceList();
         if (!usbDevices.isEmpty()) {
             boolean keep = true;
@@ -152,13 +148,10 @@ public class PreviousPatient extends AppCompatActivity {
                     connection = null;
                     device = null;
                 }
-
                 if (!keep)
                     break;
             }
         }
-
-
     }
 
     public void onClickStop(View view) {
