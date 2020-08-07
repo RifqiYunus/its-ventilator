@@ -26,7 +26,7 @@ public class PreviousPatient extends AppCompatActivity {
 
     public final String ACTION_USB_PERMISSION = "com.covid.its.ventilator.USB_PERMISSION";
     Button startButton, stopButton;
-    TextView textView, pressure, flow, BPM, oxyLevel, volume;
+    TextView  pressure, flow, BPM, oxyLevel, volume;
     UsbManager usbManager;
     UsbDevice device;
     UsbSerialDevice serialPort;
@@ -46,12 +46,6 @@ public class PreviousPatient extends AppCompatActivity {
                 putData(parsedBPM, BPM);
                 int parsedVol = ((arg0[12] & 0xff) << 8) | (arg0[11] & 0xff);
                 putData(parsedVol, volume);
-                tvAppend(textView, "\n");
-                StringBuilder sb = new StringBuilder();
-                for (byte b : arg0) {
-                    sb.append(String.format("%02X ", b));
-                }
-                tvAppend(textView, sb.toString() + " ");
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -82,7 +76,6 @@ public class PreviousPatient extends AppCompatActivity {
                             serialPort.setParity(UsbSerialInterface.PARITY_NONE);
                             serialPort.setFlowControl(UsbSerialInterface.FLOW_CONTROL_OFF);
                             serialPort.read(mCallback);
-                            tvAppend(textView, "Serial Connection Opened!\n");
 
                         } else {
                             Log.d("SERIAL", "PORT NOT OPEN");
@@ -111,7 +104,7 @@ public class PreviousPatient extends AppCompatActivity {
         usbManager = (UsbManager) getSystemService(this.USB_SERVICE);
         startButton = (Button) findViewById(R.id.buttonStart);
         stopButton = (Button) findViewById(R.id.buttonStop);
-        textView = (TextView) findViewById(R.id.debugText);
+//        textView = (TextView) findViewById(R.id.debugText);
         pressure = (TextView) findViewById(R.id.pressureView);
         flow = (TextView) findViewById(R.id.flowView);
         BPM = (TextView) findViewById(R.id.BPMView);
@@ -125,7 +118,6 @@ public class PreviousPatient extends AppCompatActivity {
         filter.addAction(UsbManager.ACTION_USB_DEVICE_ATTACHED);
         filter.addAction(UsbManager.ACTION_USB_DEVICE_DETACHED);
         registerReceiver(broadcastReceiver, filter);
-        textView.setMovementMethod(new ScrollingMovementMethod());
 //        onClickStart(startButton);
     }
 
@@ -175,8 +167,6 @@ public class PreviousPatient extends AppCompatActivity {
             serialPort.close();
         } catch (Exception ignored) {
         }
-        tvAppend(textView, "\nSerial Connection Closed! \n");
-
     }
 
     private void tvAppend(TextView tv, CharSequence text) {
